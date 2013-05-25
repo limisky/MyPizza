@@ -1,12 +1,14 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>MyPizza | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
+    <link rel="shortcut icon" href="img/icon.ico"/>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,11 +21,11 @@
           </form>   
           <div class="nav-collapse collapse pull-right">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">Pizza</a></li>
-              <li><a href="#">Order</a></li>
-              <li><a href="#">Cart</a></li>
-              <li><a href="signin.jsp">Sign in</a></li>
+              <li id="home"><a href="index.jsp">Home</a></li>
+              <li id="pizza"><a href="#">Pizza</a></li>
+              <li id="order"><a href="#">Order</a></li>
+              <li id="cart"><a href="#">Cart</a></li>
+              <li id="login"><a href="login.jsp">Login</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">limisky <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -37,6 +39,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="container">
+        <h1>Hello World!</h1>
     </div>
   </body>
 </html>

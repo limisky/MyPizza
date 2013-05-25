@@ -1,3 +1,14 @@
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  background-color:#f5f5f5;
+}
+
 /*!
  * Bootstrap v2.3.1
  *
@@ -221,14 +232,14 @@ textarea {
   }
 }
 
-body {
+/*body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
-}
+}*/
 
 a {
   color: #0088cc;

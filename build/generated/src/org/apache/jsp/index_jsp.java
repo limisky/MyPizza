@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class test_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class index_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -30,7 +30,7 @@ public final class test_jsp extends org.apache.jasper.runtime.HttpJspBase
     PageContext _jspx_page_context = null;
 
     try {
-      response.setContentType("text/html;charset=UTF-8");
+      response.setContentType("text/html");
       pageContext = _jspxFactory.getPageContext(this, request, response,
       			null, true, 8192, true);
       _jspx_page_context = pageContext;
@@ -42,20 +42,25 @@ public final class test_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
       out.write("\n");
-      out.write("\n");
-      out.write("\n");
       out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
+      out.write("<html lang=\"en\">\n");
       out.write("  <head>\n");
-      out.write("    <title>Bootstrap 101 Template</title>\n");
+      out.write("    <meta charset=\"utf-8\">\n");
+      out.write("    <title>MyPizza | Sign in</title>\n");
       out.write("    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
-      out.write("    <!-- Bootstrap -->\n");
-      out.write("    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\" media=\"screen\">\n");
+      out.write("    <link href=\"css/bootstrap.css\" rel=\"stylesheet\" media=\"screen\">\n");
+      out.write("    <script src=\"http://code.jquery.com/jquery.js\"></script>\n");
+      out.write("    <script src=\"js/bootstrap.js\"></script>\n");
       out.write("  </head>\n");
       out.write("  <body>\n");
-      out.write("    <h1>Hello, world!</h1>\n");
-      out.write("    <script src=\"http://code.jquery.com/jquery.js\"></script>\n");
-      out.write("    <script src=\"js/bootstrap.min.js\"></script>\n");
+      out.write("    <div>\n");
+      out.write("        ");
+      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "header.jsp", out, true);
+      out.write("\n");
+      out.write("    </div>\n");
+      out.write("    <div class=\"container\">\n");
+      out.write("        <h1>Hello World!</h1>\n");
+      out.write("    </div>\n");
       out.write("  </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
