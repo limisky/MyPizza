@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>MyPizza | Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset=UTF-8">
+        <title>MyPizza | Logout</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <link rel="shortcut icon" href="img/icon.ico"/>
-  </head>
-  <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container" style="width: auto; margin-left: 100px; margin-right: 100px">
           <a class="brand" href="#">MyPizza</a>
@@ -40,8 +40,12 @@
         </div>
       </div>
     </div>
-    <div class="container">
-        <h1>Hello World!</h1>
-    </div>
-  </body>
+        <div class="container" >
+             <div class="pull-left" style="position:absolute;top:10%;">
+                 <h1>You have logged out from the shop.</h1><br/><br/>
+                 <a href="login.jsp">Login again!</a><br/><br/>
+                 <a href="pizza.jsp">Buy more pizzas.</a>
+             </div>
+        </div>
+    </body>
 </html>

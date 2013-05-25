@@ -59,10 +59,10 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">limisky <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Edit profile</a></li>
+                  <li><a href="profile.jsp">Edit profile</a></li>
                   <li><a href="#">Change password</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">Logout</a></li>
+                  <li><a href="logout.jsp">Logout</a></li>
                 </ul>
               </li>
             </ul>          
