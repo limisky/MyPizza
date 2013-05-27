@@ -1,4 +1,5 @@
-pizza
+MyPizza
 =====
 
-J2EE Demo
+J2EE Demo using Bootstrap
+http://www.bootcss.com/
