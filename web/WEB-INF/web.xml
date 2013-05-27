@@ -14,6 +14,10 @@
             <param-name>LOGIN_PAGE</param-name>
             <param-value>/login.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>HOME_PAGE</param-name>
+            <param-value>/index.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Shop</servlet-name>
@@ -24,4 +28,21 @@
             30
         </session-timeout>
     </session-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Login</web-resource-name>
+            <url-pattern>/login.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>customer</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/login_error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
 </web-app>

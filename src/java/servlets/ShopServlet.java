@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ShopServlet extends HttpServlet {
+    private static String homePage = null;
     private static String loginPage = null;
     private static String jdbcURL = null;
     /** Initializes the servlet.
@@ -20,7 +21,9 @@ public class ShopServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         //defined in web.xml
+        homePage = config.getInitParameter("HOME_PAGE");
         loginPage = config.getInitParameter("LOGIN_PAGE");
+       
         jdbcURL = config.getInitParameter("JDBC_URL");
         
     }
@@ -53,9 +56,16 @@ public class ShopServlet extends HttpServlet {
             UserBean ub = new UserBean(jdbcURL,username,password);
             try {
                 ub.addUser();
+                rd = request.getRequestDispatcher("signup_succ.jsp");
+                rd.forward(request, response);
             } catch (Exception ex) {
                 Logger.getLogger(ShopServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+        else if(request.getParameter("action").equals("logout"))
+        {
+            response.sendRedirect("http://localhost:8080/MyPizza/index.jsp"); //hard code!!
+            sess.invalidate();
         }
     }
 

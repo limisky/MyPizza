@@ -40,73 +40,51 @@
       }
     </style>
     <script type="text/javascript">
-         function check1()
+        function prepare()
         {
-            var um = $("input#user_name").val();  
-            var ps = $("input#user_pass").val();
-            
-            if(um == "" || ps == "")
-            {
-                $("#m1").text("Please fill in the form completely.");
-                $("#loginAlert").show();  
-                return false;
-            }
-            else
-                return true;
+            var username = $("li#username").text();
+            if(username != "null")
+                self.location='index.jsp'; 
         }
-        function check2()
-        {
-            var um = $("input#um").val();  
-            var p1 = $("input#p1").val();
-            var p2 = $("input#p2").val();
-            
-            if(um == "" || p1 == "" || p2 == "")
-            {
-                $("#m2").text("Please fill in the form completely.");
-                $("#signupAlert").show();  
-                return false;
-            }
-            if(p1 != p2)
-            {
-                $("#m2").text("Two passwords do not match.");
-                $("#signupAlert").show();  
-                return false;
-            }
-            else
-                return true;
-        }
+        function check1()
+       {
+           var um = $("input#user_name").val();  
+           var ps = $("input#user_pass").val();
+
+           if(um == "" || ps == "")
+           {
+               $("#m1").text("Please fill in the form completely.");
+               $("#loginAlert").show();  
+               return false;
+           }
+           else
+               return true;
+       }
+       function check2()
+       {
+           var um = $("input#um").val();  
+           var p1 = $("input#p1").val();
+           var p2 = $("input#p2").val();
+
+           if(um == "" || p1 == "" || p2 == "")
+           {
+               $("#m2").text("Please fill in the form completely.");
+               $("#signupAlert").show();  
+               return false;
+           }
+           if(p1 != p2)
+           {
+               $("#m2").text("Two passwords do not match.");
+               $("#signupAlert").show();  
+               return false;
+           }
+           else
+               return true;
+       }
     </script>
   </head>
-  <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container" style="width: auto; margin-left: 100px; margin-right: 100px">
-          <a class="brand" href="#">MyPizza</a>
-          <form class="navbar-form pull-left">
-            <input class="span4" type="text" placeholder="Pizza...">
-            <button type="submit" class="btn">Search</button>
-          </form>   
-          <div class="nav-collapse collapse pull-right">
-            <ul class="nav">
-              <li><a href="index.jsp">Home</a></li>
-              <li><a href="#">Pizza</a></li>
-              <li><a href="#">Order</a></li>
-              <li><a href="#">Cart</a></li>
-              <li class="active"><a href="login.jsp">Login</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">limisky <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="profile.jsp">Edit profile</a></li>
-                  <li><a href="#">Change password</a></li>
-                  <li class="divider"></li>
-                  <li><a href="logout.jsp">Logout</a></li>
-                </ul>
-              </li>
-            </ul>          
-          </div>
-        </div>
-      </div>
-    </div>
+  <body onload="prepare();">
+    <%@ include file="header.jsp"%>    
     <div class="container">
         <div class="pull-left" style="position:absolute;top:30%; color:#ffffff;-webkit-text-stroke: 0.3px #000000;">
             <h2>Welcome to MyPizza.</h2>    
@@ -117,10 +95,10 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Error!</strong><label id="m1"></label>
         </div>
-            <form onsubmit="return check1();">
+            <form method="POST" action='<%= response.encodeURL("j_security_check") %>' onsubmit="return check1();">
               <h2 class="form-signin-heading">Please login</h2>
-              <input type="text" id="user_name" class="input-block-level" placeholder="Username">
-              <input type="password" id="user_pass" class="input-block-level" placeholder="Password">
+              <input type="text" id="user_name" name="j_username" class="input-block-level" placeholder="Username">
+              <input type="password" id="user_pass" name="j_password" class="input-block-level" placeholder="Password">
 <!--              <input class="checkbox" type="checkbox" value="remember-me"> Remember me-->
               <button class="btn btn-large btn-primary pull-right" type="submit">Login</button>
             </form>
