@@ -21,11 +21,11 @@
           </form>   
           <div class="nav-collapse collapse pull-right">
             <ul class="nav">
-              <li id="home"><a href="index.jsp">Home</a></li>
-              <li id="pizza"><a href="#">Pizza</a></li>
-              <li id="order"><a href="#">Order</a></li>
-              <li id="cart"><a href="#">Cart</a></li>
-              <li id="login"><a href="login.jsp">Login</a></li>
+              <li class="active"><a href="index.jsp">Home</a></li>
+              <li><a href="#">Pizza</a></li>
+              <li><a href="#">Order</a></li>
+              <li><a href="#">Cart</a></li>
+              <li><a href="login.jsp">Login</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">limisky <b class="caret"></b></a>
                 <ul class="dropdown-menu">

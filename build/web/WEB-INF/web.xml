@@ -4,12 +4,20 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>servlets.TestServlet</servlet-class>
+        <servlet-name>Shop</servlet-name>
+        <servlet-class>servlets.ShopServlet</servlet-class>
+        <init-param>
+            <param-name>JDBC_URL</param-name>
+            <param-value>jdbc:mysql://localhost:3306/pizza?user=root&amp;password=root&amp;verifyServerCertificate=false&amp;useSSL=true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>LOGIN_PAGE</param-name>
+            <param-value>/login.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestServlet</url-pattern>
+        <servlet-name>Shop</servlet-name>
+        <url-pattern>/shop</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -21,16 +21,18 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `pizza`.`customer`
+-- Table `pizza`.`users`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pizza`.`customer` (
-  `idcustomer` INT(11) NOT NULL AUTO_INCREMENT ,
-  `username` VARCHAR(50) NOT NULL ,
-  `password` VARCHAR(32) NOT NULL ,
-  `email` VARCHAR(50) NOT NULL ,
-  PRIMARY KEY (`idcustomer`) ,
-  UNIQUE INDEX `idnew_table_UNIQUE` (`idcustomer` ASC) ,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) )
+CREATE  TABLE IF NOT EXISTS `pizza`.`users` (
+  `user_name` VARCHAR(32) NOT NULL ,
+  `user_pass` VARCHAR(32) NOT NULL ,
+  `name` VARCHAR(100) NULL DEFAULT NULL ,
+  `street_address` VARCHAR(100) NULL DEFAULT NULL ,
+  `zip_code` VARCHAR(10) NULL DEFAULT NULL ,
+  `city` VARCHAR(30) NULL DEFAULT NULL ,
+  `country` VARCHAR(30) NULL DEFAULT NULL ,
+  PRIMARY KEY (`user_name`) ,
+  UNIQUE INDEX `username_UNIQUE` (`user_name` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -40,78 +42,21 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `pizza`.`order` (
   `idorder` INT(11) NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(10) NOT NULL ,
-  `name` VARCHAR(50) NOT NULL ,
-  `surname` VARCHAR(50) NOT NULL ,
-  `address` VARCHAR(100) NOT NULL ,
-  `zipcode` VARCHAR(10) NOT NULL ,
+  `user_name` VARCHAR(32) NOT NULL ,
+  `name` VARCHAR(100) NOT NULL ,
+  `street_address` VARCHAR(100) NOT NULL ,
+  `zip_code` VARCHAR(10) NOT NULL ,
   `city` VARCHAR(30) NOT NULL ,
-  `tel` VARCHAR(30) NOT NULL ,
+  `country` VARCHAR(30) NOT NULL ,
   `ordertime` VARCHAR(45) NULL DEFAULT NULL ,
   `delivertime` VARCHAR(45) NULL DEFAULT NULL ,
   `receivetime` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`idorder`) ,
-  UNIQUE INDEX `idorder_UNIQUE` (`idorder` ASC) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `pizza`.`customer_order`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pizza`.`customer_order` (
-  `idcustomer` INT(11) NOT NULL ,
-  `idorder` INT(11) NOT NULL ,
-  INDEX `order` (`idorder` ASC) ,
-  INDEX `customer` (`idcustomer` ASC) ,
-  CONSTRAINT `fk_customer_order`
-    FOREIGN KEY (`idorder` )
-    REFERENCES `pizza`.`order` (`idorder` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_order_customer`
-    FOREIGN KEY (`idcustomer` )
-    REFERENCES `pizza`.`customer` (`idcustomer` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `pizza`.`profile`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pizza`.`profile` (
-  `idprofile` INT(11) NOT NULL AUTO_INCREMENT ,
-  `title` VARCHAR(10) NULL DEFAULT NULL ,
-  `name` VARCHAR(50) NULL DEFAULT NULL ,
-  `surname` VARCHAR(50) NULL DEFAULT NULL ,
-  `address` VARCHAR(100) NULL DEFAULT NULL ,
-  `zipcode` VARCHAR(10) NULL DEFAULT NULL ,
-  `city` VARCHAR(30) NULL DEFAULT NULL ,
-  `tel` VARCHAR(30) NULL DEFAULT NULL ,
-  PRIMARY KEY (`idprofile`) ,
-  UNIQUE INDEX `idprofile_UNIQUE` (`idprofile` ASC) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `pizza`.`customer_profile`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `pizza`.`customer_profile` (
-  `idcustomer` INT(11) NOT NULL ,
-  `idprofile` INT(11) NOT NULL ,
-  INDEX `customer` (`idcustomer` ASC) ,
-  INDEX `profile` (`idprofile` ASC) ,
-  CONSTRAINT `fk_profile_customer`
-    FOREIGN KEY (`idcustomer` )
-    REFERENCES `pizza`.`customer` (`idcustomer` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_customer_profile`
-    FOREIGN KEY (`idprofile` )
-    REFERENCES `pizza`.`profile` (`idprofile` )
+  UNIQUE INDEX `idorder_UNIQUE` (`idorder` ASC) ,
+  INDEX `fk_order_username` (`user_name` ASC) ,
+  CONSTRAINT `fk_order_username`
+    FOREIGN KEY (`user_name` )
+    REFERENCES `pizza`.`users` (`user_name` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -127,6 +72,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`product` (
   `price` DOUBLE NOT NULL ,
   `description` VARCHAR(200) NULL DEFAULT NULL ,
   `pic_url` VARCHAR(200) NOT NULL DEFAULT 'http://generalstorecafenj.com/pizzaman.jpg' ,
+  `sales` INT(11) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`idproduct`) ,
   UNIQUE INDEX `idproduct_UNIQUE` (`idproduct` ASC) )
 ENGINE = InnoDB
@@ -165,14 +111,31 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`product_component` (
   `quantity` INT(11) NOT NULL DEFAULT '1' ,
   INDEX `product` (`idproduct` ASC) ,
   INDEX `component` (`idcomponent` ASC) ,
+  CONSTRAINT `fk_component_product`
+    FOREIGN KEY (`idproduct` )
+    REFERENCES `pizza`.`product` (`idproduct` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_component`
     FOREIGN KEY (`idcomponent` )
     REFERENCES `pizza`.`component` (`idcomponent` )
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_component_product`
-    FOREIGN KEY (`idproduct` )
-    REFERENCES `pizza`.`product` (`idproduct` )
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `pizza`.`user_roles`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `pizza`.`user_roles` (
+  `USER_NAME` VARCHAR(15) NOT NULL ,
+  `ROLE_NAME` VARCHAR(15) NOT NULL ,
+  PRIMARY KEY (`USER_NAME`, `ROLE_NAME`) ,
+  INDEX `fk_role_user` (`USER_NAME` ASC) ,
+  CONSTRAINT `fk_role_user`
+    FOREIGN KEY (`USER_NAME` )
+    REFERENCES `pizza`.`users` (`user_name` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

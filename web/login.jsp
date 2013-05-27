@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>MyPizza | Sign in</title>
+    <title>MyPizza | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <script src="http://code.jquery.com/jquery.js"></script>
@@ -39,6 +39,43 @@
         padding: 7px 9px;
       }
     </style>
+    <script type="text/javascript">
+         function check1()
+        {
+            var um = $("input#user_name").val();  
+            var ps = $("input#user_pass").val();
+            
+            if(um == "" || ps == "")
+            {
+                $("#m1").text("Please fill in the form completely.");
+                $("#loginAlert").show();  
+                return false;
+            }
+            else
+                return true;
+        }
+        function check2()
+        {
+            var um = $("input#um").val();  
+            var p1 = $("input#p1").val();
+            var p2 = $("input#p2").val();
+            
+            if(um == "" || p1 == "" || p2 == "")
+            {
+                $("#m2").text("Please fill in the form completely.");
+                $("#signupAlert").show();  
+                return false;
+            }
+            if(p1 != p2)
+            {
+                $("#m2").text("Two passwords do not match.");
+                $("#signupAlert").show();  
+                return false;
+            }
+            else
+                return true;
+        }
+    </script>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -51,11 +88,11 @@
           </form>   
           <div class="nav-collapse collapse pull-right">
             <ul class="nav">
-              <li id="home"><a href="index.jsp">Home</a></li>
-              <li id="pizza"><a href="#">Pizza</a></li>
-              <li id="order"><a href="#">Order</a></li>
-              <li id="cart"><a href="#">Cart</a></li>
-              <li id="login"><a href="login.jsp">Login</a></li>
+              <li><a href="index.jsp">Home</a></li>
+              <li><a href="#">Pizza</a></li>
+              <li><a href="#">Order</a></li>
+              <li><a href="#">Cart</a></li>
+              <li class="active"><a href="login.jsp">Login</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">limisky <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -71,25 +108,33 @@
       </div>
     </div>
     <div class="container">
-        <div class="pull-left" style="position:absolute;top:30%; color:#ffffff;-webkit-text-stroke: 0.5px #000000;">
+        <div class="pull-left" style="position:absolute;top:30%; color:#ffffff;-webkit-text-stroke: 0.3px #000000;">
             <h2>Welcome to MyPizza.</h2>    
             <h4>Hope you enjoy our fresh and yummy pizza.</h4>
         </div>
         <div class="form-signin pull-right">
-            <form>
-              <h2 class="form-signin-heading">Please sign in</h2>
-              <input type="text" class="input-block-level" placeholder="Username">
-              <input type="password" class="input-block-level" placeholder="Password">
-              <input class="checkbox"type="checkbox" value="remember-me"> Remember me
+        <div id="loginAlert" class="alert alert-error" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong><label id="m1"></label>
+        </div>
+            <form onsubmit="return check1();">
+              <h2 class="form-signin-heading">Please login</h2>
+              <input type="text" id="user_name" class="input-block-level" placeholder="Username">
+              <input type="password" id="user_pass" class="input-block-level" placeholder="Password">
+<!--              <input class="checkbox" type="checkbox" value="remember-me"> Remember me-->
               <button class="btn btn-large btn-primary pull-right" type="submit">Login</button>
             </form>
+            <br/>
             <hr/>
-            <form>
+        <div id="signupAlert" class="alert alert-error" style="display: none;"> 
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong><label id="m2"></label>
+        </div>
+            <form method="POST" action='shop?action=signup' onsubmit="return check2();">
                <h2 class="form-signin-heading">New customer? Join now!</h2>
-               <input type="text" class="input-block-level" placeholder="Username">
-               <input type="text" class="input-block-level" placeholder="Email">
-               <input type="password" class="input-block-level" placeholder="Password">
-               <input type="password" class="input-block-level" placeholder="Password Again">
+               <input type="text" id="um" name="username" class="input-block-level" placeholder="Username">
+               <input type="password" id="p1" name="password" class="input-block-level" placeholder="Password">
+               <input type="password" id="p2" name="ver_pass" class="input-block-level" placeholder="Verify Password">
                <button class="btn btn-large btn-primary pull-right" type="submit">Sign up</button>
            </form>
         </div>

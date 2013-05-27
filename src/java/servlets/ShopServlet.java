@@ -1,22 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
+import beans.UserBean;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import beans.*;
-/**
- *
- * @author Administrator
- */
-public class TestServlet extends HttpServlet {
+import javax.servlet.http.HttpSession;
 
+public class ShopServlet extends HttpServlet {
+    private static String loginPage = null;
+    private static String jdbcURL = null;
+    /** Initializes the servlet.
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        //defined in web.xml
+        loginPage = config.getInitParameter("LOGIN_PAGE");
+        jdbcURL = config.getInitParameter("JDBC_URL");
+        
+    }
+    /** Destroys the servlet.
+     */
+    public void destroy() {    
+    }
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -29,27 +40,22 @@ public class TestServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
+        HttpSession sess = request.getSession();
+        RequestDispatcher rd = null;
+        if(request.getParameter("action") == null || 
+           request.getParameter("action").equals("home")){
+        
         }
-        try{
-            TestBeans bean = new TestBeans();
-        }
-        catch(Exception e){
-            throw new ServletException(e);
+        else if(request.getParameter("action").equals("signup")){
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            
+            UserBean ub = new UserBean(jdbcURL,username,password);
+            try {
+                ub.addUser();
+            } catch (Exception ex) {
+                Logger.getLogger(ShopServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
