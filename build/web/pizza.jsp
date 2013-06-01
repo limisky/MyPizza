@@ -30,7 +30,6 @@
             <div class="span4">
               <h2>${pizza.name}</h2>
               <p><img class="img-rounded" src="${pizza.pic_url}"></p>
-              <p>Price:${pizza.price}kr</p>
               <p style="height:50px">
                  ${pizza.description}</p>
               <p>
