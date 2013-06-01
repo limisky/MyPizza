@@ -37,7 +37,7 @@
                     </p>
                 </div>
                 <div class="span4">
-                    <h3>MyPizza News</h3>
+                    <h3><br/>MyPizza News</h3>
                     <p>
                         Welcome to MyPizza's online ordering system! <br/> Order any day of the week, 10am until midnight.<br/> Our minimum order for delivery is 95kr.<br/><br/>
                         If you have any questions about your order, please contact us @0706175217<br/><br/>
