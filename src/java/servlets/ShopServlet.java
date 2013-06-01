@@ -1,11 +1,12 @@
 package servlets;
 
-import beans.UserBean;
+import beans.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,10 @@ import javax.servlet.http.HttpSession;
 public class ShopServlet extends HttpServlet {
     private static String homePage = null;
     private static String loginPage = null;
+    private static String productPage = null; 
     private static String jdbcURL = null;
+    
+    private PizzaListBean pizzaList = null;
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
@@ -23,7 +27,7 @@ public class ShopServlet extends HttpServlet {
         //defined in web.xml
         homePage = config.getInitParameter("HOME_PAGE");
         loginPage = config.getInitParameter("LOGIN_PAGE");
-       
+        productPage = config.getInitParameter("PRODUCT_PAGE");
         jdbcURL = config.getInitParameter("JDBC_URL");
         
     }
@@ -66,6 +70,20 @@ public class ShopServlet extends HttpServlet {
         {
             response.sendRedirect("http://localhost:8080/MyPizza/index.jsp"); //hard code!!
             sess.invalidate();
+        }
+        else if(request.getParameter("action").equals("loadpizza"))
+        {
+            try{
+                pizzaList = new PizzaListBean(jdbcURL);
+            }
+            catch(Exception e){
+                throw new ServletException(e);
+            }
+            ServletContext sc = getServletContext();
+            sc.setAttribute("pizzaList",pizzaList.getProductList());
+            
+            rd = request.getRequestDispatcher(productPage);
+            rd.forward(request,response);
         }
     }
 

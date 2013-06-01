@@ -22,7 +22,7 @@
               <div class="nav-collapse collapse pull-right">
                 <ul class="nav">
                   <li><a href="index.jsp">Home</a></li>
-                  <li><a href="#">Pizza</a></li>
+                  <li><a href="shop?action=loadpizza">Pizza</a></li>
                   <li><a href="#">Order</a></li>
                   <li><a href="#">Cart</a></li>
                   <li class="divider-vertical"></li>
