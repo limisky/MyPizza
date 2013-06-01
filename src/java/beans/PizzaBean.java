@@ -10,7 +10,7 @@ public class PizzaBean {
     private double price;
     private String description;
     private String pic_url;
-    private int sals;
+    private int sales;
     
     public PizzaBean(){
     }
@@ -88,15 +88,15 @@ public class PizzaBean {
     /**
      * @return the sals
      */
-    public int getSals() {
-        return sals;
+    public int getSales() {
+        return sales;
     }
 
     /**
      * @param sals the sals to set
      */
-    public void setSals(int sals) {
-        this.sals = sals;
+    public void setSales(int sales) {
+        this.sales = sales;
     }
     
     

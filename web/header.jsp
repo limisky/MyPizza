@@ -22,9 +22,9 @@
               <div class="nav-collapse collapse pull-right">
                 <ul class="nav">
                   <li><a href="index.jsp">Home</a></li>
-                  <li><a href="shop?action=loadpizza">Pizza</a></li>
+                  <li><a href="shop?action=loadPizza">Pizza</a></li>
                   <li><a href="#">Order</a></li>
-                  <li><a href="#">Cart</a></li>
+                  <li><a href="shop?action=loadCart">Cart</a></li>
                   <li class="divider-vertical"></li>
                   <li id="username" style="height: 40px"><a href="#"><%= request.getRemoteUser() %><a href="#"></a></li>
                   <li id="login"><a href="login.jsp">Login</a></li>

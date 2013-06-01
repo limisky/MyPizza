@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  *
@@ -37,7 +38,7 @@ public class PizzaListBean {
                 pb.setPrice(rs.getDouble("price"));
                 pb.setDescription(rs.getString("description"));
                 pb.setPic_url(rs.getString("pic_url"));
-                pb.setSals(rs.getInt("sales"));
+                pb.setSales(rs.getInt("sales"));
                 pizzaList.add(pb);
             }
         }
@@ -61,5 +62,17 @@ public class PizzaListBean {
     }
     public Collection getProductList() {
         return pizzaList;
+    }
+    public PizzaBean getById(int id) {
+	PizzaBean pb = null;
+	Iterator iter =pizzaList.iterator();
+        
+	while(iter.hasNext()){
+	    pb=(PizzaBean)iter.next();
+	    if(pb.getId()== id){
+                return pb;
+	    }
+	}
+	return null;
     }
 }

@@ -22,6 +22,10 @@
             <param-name>PRODUCT_PAGE</param-name>
             <param-value>/pizza.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>CART_PAGE</param-name>
+            <param-value>/cart.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Shop</servlet-name>
