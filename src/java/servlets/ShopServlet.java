@@ -2,6 +2,7 @@ package servlets;
 
 import beans.*;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ public class ShopServlet extends HttpServlet {
     private static String homePage = null;
     private static String loginPage = null;
     private static String productPage = null; 
+    private static String cartPage = null;
     private static String jdbcURL = null;
     
     private PizzaListBean pizzaList = null;
@@ -28,6 +30,7 @@ public class ShopServlet extends HttpServlet {
         homePage = config.getInitParameter("HOME_PAGE");
         loginPage = config.getInitParameter("LOGIN_PAGE");
         productPage = config.getInitParameter("PRODUCT_PAGE");
+        cartPage = config.getInitParameter("CART_PAGE");
         jdbcURL = config.getInitParameter("JDBC_URL");
         
     }
@@ -49,6 +52,13 @@ public class ShopServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession sess = request.getSession();
         RequestDispatcher rd = null;
+        CartBean cart;
+        if(sess.getAttribute("cart") == null)
+            cart = new CartBean();
+        else
+            cart=(CartBean)sess.getAttribute("cart");
+        
+        
         if(request.getParameter("action") == null || 
            request.getParameter("action").equals("home")){
         
@@ -71,7 +81,7 @@ public class ShopServlet extends HttpServlet {
             response.sendRedirect("http://localhost:8080/MyPizza/index.jsp"); //hard code!!
             sess.invalidate();
         }
-        else if(request.getParameter("action").equals("loadpizza"))
+        else if(request.getParameter("action").equals("loadPizza"))
         {
             try{
                 pizzaList = new PizzaListBean(jdbcURL);
@@ -83,6 +93,25 @@ public class ShopServlet extends HttpServlet {
             sc.setAttribute("pizzaList",pizzaList.getProductList());
             
             rd = request.getRequestDispatcher(productPage);
+            rd.forward(request,response);
+        }
+        else if(request.getParameter("action").equals("addCart")){
+            Integer pizzaid = Integer.parseInt(request.getParameter("pizzaid"));
+            Integer quantity =Integer.parseInt(request.getParameter("quantity"));
+            
+            PizzaBean pb = null;
+            pb = pizzaList.getById(pizzaid);
+            cart.addPizza(pb, quantity);
+            
+            sess.setAttribute("cart", cart);
+            rd = request.getRequestDispatcher(productPage);
+            rd.forward(request,response);
+        }
+        else if(request.getParameter("action").equals("loadCart")){
+            ServletContext sc = getServletContext();
+            sc.setAttribute("cartList",cart.getCart());
+            //System.out.println(cart.getCart().size());
+            rd = request.getRequestDispatcher(cartPage);
             rd.forward(request,response);
         }
     }
@@ -127,4 +156,8 @@ public class ShopServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private CartBean getCart(HttpServletRequest request) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

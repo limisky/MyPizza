@@ -18,11 +18,16 @@
             <div class="span4">
               <h2>${pizza.name}</h2>
               <p><img class="img-rounded" src="${pizza.pic_url}"></p>
-              <p>Price:${pizza.price}kr</p>
               <p>
-                  <input type="number" class="span1" style="margin-top:8px"value="1">
-                  <a href="#" class="btn btn-primary">Add to Cart &raquo;</a>
+                 ${pizza.description}<br/>
+                 Price:${pizza.price}kr<br/>
+                 Sales:${pizza.sales}st
               </p>
+              <form method="POST" action="shop?action=addCart">
+                  <input type="hidden" name="pizzaid" value=${pizza.id}>
+                  <input type="number" name="quantity" class="span1" style="margin-top:8px"value="1">
+                  <button class="btn btn-primary" type="submit">Add to Cart &raquo;</button>
+              </form>
             </div>  
         </c:forEach>
       </div>
