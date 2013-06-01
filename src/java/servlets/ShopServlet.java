@@ -104,12 +104,13 @@ public class ShopServlet extends HttpServlet {
             cart.addPizza(pb, quantity);
             
             sess.setAttribute("cart", cart);
-            rd = request.getRequestDispatcher(productPage);
+            rd = request.getRequestDispatcher(productPage+"?id="+pizzaid+"&mess=succ");
             rd.forward(request,response);
         }
         else if(request.getParameter("action").equals("loadCart")){
             ServletContext sc = getServletContext();
             sc.setAttribute("cartList",cart.getCart());
+            sc.setAttribute("total",cart.getTotal());
             //System.out.println(cart.getCart().size());
             rd = request.getRequestDispatcher(cartPage);
             rd.forward(request,response);

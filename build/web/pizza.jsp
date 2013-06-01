@@ -9,8 +9,19 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
     <link rel="shortcut icon" href="img/icon.ico"/>
+    <script type="text/javascript">
+        function message()
+        {
+            var id = "<%=request.getParameter("id")%>";
+            var mess = "<%=request.getParameter("mess")%>";
+            if(mess=="succ")
+                $("span#succ"+id).show();
+            else if(mess=="err")
+                $("span#err"+id).show();
+        }
+    </script>
   </head>
-  <body>
+  <body onload="message();">
     <%@ include file="header.jsp"%>
     <div class="container" style="margin-top: 30px">
       <div class="row">
@@ -18,15 +29,18 @@
             <div class="span4">
               <h2>${pizza.name}</h2>
               <p><img class="img-rounded" src="${pizza.pic_url}"></p>
+              <p style="height:50px">
+                 ${pizza.description}</p>
               <p>
-                 ${pizza.description}<br/>
-                 Price:${pizza.price}kr<br/>
-                 Sales:${pizza.sales}st
+                 Price:${pizza.price} kr<br/>
+                 Sales:${pizza.sales} st
               </p>
               <form method="POST" action="shop?action=addCart">
                   <input type="hidden" name="pizzaid" value=${pizza.id}>
                   <input type="number" name="quantity" class="span1" style="margin-top:8px"value="1">
                   <button class="btn btn-primary" type="submit">Add to Cart &raquo;</button>
+                  <span id ="succ${pizza.id}" class="label label-success hide">Success</span>
+                  <span id ="err${pizza.id}" class="label label-important hide">Out of Stock!</span>
               </form>
             </div>  
         </c:forEach>

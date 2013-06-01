@@ -13,7 +13,7 @@
   <body>
       <hr>
       <footer class="text-center">
-        <p>&copy; Uppsala University Spring 2013</p>
+        <p>Software Architecture with Java &copy; Uppsala University Spring 2013</p>
       </footer>
   </body>
 </html>

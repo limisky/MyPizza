@@ -10,6 +10,7 @@ import java.util.Iterator;
  */
 public class CartBean {
     private Collection cart;
+    private double total=0;
     
     public CartBean(){
         cart = new ArrayList();
@@ -17,7 +18,7 @@ public class CartBean {
     public void addPizza(PizzaBean pb, int quantity){
         Object newItem[] = null;
         PizzaBean tempBean = null;
-        
+        total+=pb.getPrice()*quantity;
         //if the cart is empty just add the pizza
         if(cart.isEmpty()){
             newItem = new Object[2];
@@ -51,5 +52,8 @@ public class CartBean {
     }
     public Collection getCart(){
       return cart;
+    }
+    public double getTotal(){
+      return total;
     }
 }
