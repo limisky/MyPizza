@@ -26,6 +26,10 @@
             <param-name>CART_PAGE</param-name>
             <param-value>/cart.jsp</param-value>
         </init-param>
+        <init-param>
+            <param-name>PROFILE_PAGE</param-name>
+            <param-value>/profile.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Shop</servlet-name>

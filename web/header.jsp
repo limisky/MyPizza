@@ -26,7 +26,7 @@
                   <li><a href="#">Order</a></li>
                   <li><a href="shop?action=loadCart">Cart</a></li>
                   <li class="divider-vertical"></li>
-                  <li id="username" style="height: 40px"><a href="#"><%= request.getRemoteUser() %><a href="#"></a></li>
+                  <li id="username" style="height: 40px"><a href="shop?action=loadProfile"><%= request.getRemoteUser() %></a></li>
                   <li id="login"><a href="login.jsp">Login</a></li>
                   <li id="logout"><a href="shop?action=logout">Logout</a></li>
                   <script>

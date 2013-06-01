@@ -40,8 +40,13 @@
       }
     </style>
     <script type="text/javascript">
-        function prepare()
+        function precheck()
         {
+            var mess = "<%=request.getParameter("mess")%>";
+            if(mess == "exist"){
+               $("#m2").text("Username already exist.");
+               $("#signupAlert").show();  
+            }
             var username = $("li#username").text();
             if(username != "null")
                 self.location='index.jsp'; 
@@ -83,7 +88,7 @@
        }
     </script>
   </head>
-  <body onload="prepare();">
+  <body onload="precheck();">
     <%@ include file="header.jsp"%>    
     <div class="container">
         <div class="pull-left" style="position:absolute;top:30%; color:#ffffff;-webkit-text-stroke: 0.3px #000000;">

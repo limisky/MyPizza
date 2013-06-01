@@ -19,6 +19,7 @@ public class ShopServlet extends HttpServlet {
     private static String loginPage = null;
     private static String productPage = null; 
     private static String cartPage = null;
+    private static String profilePage = null;
     private static String jdbcURL = null;
     
     private PizzaListBean pizzaList = null;
@@ -31,6 +32,7 @@ public class ShopServlet extends HttpServlet {
         loginPage = config.getInitParameter("LOGIN_PAGE");
         productPage = config.getInitParameter("PRODUCT_PAGE");
         cartPage = config.getInitParameter("CART_PAGE");
+        profilePage = config.getInitParameter("PROFILE_PAGE");
         jdbcURL = config.getInitParameter("JDBC_URL");
         
     }
@@ -69,9 +71,15 @@ public class ShopServlet extends HttpServlet {
             
             UserBean ub = new UserBean(jdbcURL,username,password);
             try {
-                ub.addUser();
-                rd = request.getRequestDispatcher("signup_succ.jsp");
-                rd.forward(request, response);
+                if(ub.testUser(username)==true){
+                    rd = request.getRequestDispatcher("login.jsp?mess=exist");
+                    rd.forward(request, response);
+                }
+                else{
+                    ub.addUser();
+                    rd = request.getRequestDispatcher("signup_succ.jsp");
+                    rd.forward(request, response);
+                }
             } catch (Exception ex) {
                 Logger.getLogger(ShopServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -113,6 +121,19 @@ public class ShopServlet extends HttpServlet {
             sc.setAttribute("total",cart.getTotal());
             //System.out.println(cart.getCart().size());
             rd = request.getRequestDispatcher(cartPage);
+            rd.forward(request,response);
+        }
+        else if(request.getParameter("action").equals("loadProfile")){
+            
+            String username = request.getRemoteUser();
+            try{
+                ProfileBean pb = new ProfileBean(jdbcURL);
+                pb.populate(username);
+                sess.setAttribute("profile",pb);
+            }
+            catch(Exception e){
+            }
+            rd = request.getRequestDispatcher(profilePage);
             rd.forward(request,response);
         }
     }
