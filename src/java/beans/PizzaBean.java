@@ -1,10 +1,17 @@
 package beans;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Administrator
  */
 public class PizzaBean {
+    private String url;
     private int id;
     private String name;
     private double price;
@@ -12,9 +19,36 @@ public class PizzaBean {
     private String pic_url;
     private int sales;
     
+    private Connection con;
+    
     public PizzaBean(){
     }
-
+    public PizzaBean(String _url, int _idproduct){
+        url = _url;
+        id = _idproduct;
+    }
+    public void addSales(int quantity)throws Exception{
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            
+            String querySQL = "SELECT sales from `product` where idproduct ='"+id+"'";
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery(querySQL);
+            rs.next();
+            quantity += rs.getInt("sales");  
+            
+            String sql = "UPDATE `product` SET `sales`="+quantity+" WHERE `idproduct`='"+id+"';";
+            System.out.println(sql);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.execute();
+            con.commit();         
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+    }
     /**
      * @return the id
      */

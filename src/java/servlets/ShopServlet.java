@@ -131,26 +131,31 @@ public class ShopServlet extends HttpServlet {
         else if(request.getParameter("action").equals("loadProfile")){
             
             String username = request.getRemoteUser();
-            try{
-                ProfileBean pb = new ProfileBean(jdbcURL);
-                pb.populate(username);
-                sess.setAttribute("profile",pb);
-            }
-            catch(Exception e){
-            }
-            if(request.getParameter("frd").equals("checkout"))
-            {
-                rd = request.getRequestDispatcher(checkoutPage);
+            if(username == null){
+                rd = request.getRequestDispatcher(loginPage);
                 rd.forward(request,response);
             }
-            else if(request.getParameter("frd").equals("profile"))
-            {
-                rd = request.getRequestDispatcher(profilePage);
-                rd.forward(request,response);
+            else{
+                try{
+                    ProfileBean pb = new ProfileBean(jdbcURL);
+                    pb.populate(username);
+                    sess.setAttribute("profile",pb);
+                }
+                catch(Exception e){
+                }
+                if(request.getParameter("frd").equals("checkout"))
+                {
+                    rd = request.getRequestDispatcher(checkoutPage);
+                    rd.forward(request,response);
+                }
+                else if(request.getParameter("frd").equals("profile"))
+                {
+                    rd = request.getRequestDispatcher(profilePage);
+                    rd.forward(request,response);
+                }
             }
         }
         else if(request.getParameter("action").equals("checkout")){
-            
             String username = request.getRemoteUser();
             String name = request.getParameter("name");
             String street = request.getParameter("street");
@@ -178,6 +183,9 @@ public class ShopServlet extends HttpServlet {
                     quantity = (Integer)tmpArr[1];
                     ob = new OrderBean(jdbcURL,idorder,idproduct,quantity);
                     ob.addOrderProduct();
+                    
+                    PizzaBean pb = new PizzaBean(jdbcURL,idproduct);
+                    pb.addSales(quantity);
                 }
             }
             catch(Exception e){
