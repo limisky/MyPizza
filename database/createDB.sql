@@ -49,8 +49,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`order` (
   `city` VARCHAR(30) NOT NULL ,
   `country` VARCHAR(30) NOT NULL ,
   `ordertime` VARCHAR(45) NULL DEFAULT NULL ,
-  `delivertime` VARCHAR(45) NULL DEFAULT NULL ,
-  `receivetime` VARCHAR(45) NULL DEFAULT NULL ,
+  `total` VARCHAR(45) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`idorder`) ,
   UNIQUE INDEX `idorder_UNIQUE` (`idorder` ASC) ,
   INDEX `fk_order_username` (`user_name` ASC) ,
@@ -60,6 +59,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`order` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -76,6 +76,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`product` (
   PRIMARY KEY (`idproduct`) ,
   UNIQUE INDEX `idproduct_UNIQUE` (`idproduct` ASC) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = utf8;
 
 
