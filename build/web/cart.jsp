@@ -43,7 +43,7 @@
                 <td></td>
                 <td><h4>Total:</h4></td>
                 <td><h4>${total} Kr</h4></td>
-                <td><button class=" btn btn-primary">Check Out &raquo;</button></td>
+                <td><a button class=" btn btn-primary" href="shop?action=loadProfile&frd=checkout">Check Out &raquo;</a></td>
             </tfoot>
         </tbody>
         </table>

@@ -3,6 +3,7 @@ package servlets;
 import beans.*;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -20,6 +21,8 @@ public class ShopServlet extends HttpServlet {
     private static String productPage = null; 
     private static String cartPage = null;
     private static String profilePage = null;
+    private static String checkoutPage = null;
+    private static String orderPage = null;
     private static String jdbcURL = null;
     
     private PizzaListBean pizzaList = null;
@@ -33,6 +36,8 @@ public class ShopServlet extends HttpServlet {
         productPage = config.getInitParameter("PRODUCT_PAGE");
         cartPage = config.getInitParameter("CART_PAGE");
         profilePage = config.getInitParameter("PROFILE_PAGE");
+        checkoutPage = config.getInitParameter("CHECKOUT_PAGE");
+        orderPage = config.getInitParameter("ORDER_PAGE");
         jdbcURL = config.getInitParameter("JDBC_URL");
         
     }
@@ -133,7 +138,51 @@ public class ShopServlet extends HttpServlet {
             }
             catch(Exception e){
             }
-            rd = request.getRequestDispatcher(profilePage);
+            if(request.getParameter("frd").equals("checkout"))
+            {
+                rd = request.getRequestDispatcher(checkoutPage);
+                rd.forward(request,response);
+            }
+            else if(request.getParameter("frd").equals("profile"))
+            {
+                rd = request.getRequestDispatcher(profilePage);
+                rd.forward(request,response);
+            }
+        }
+        else if(request.getParameter("action").equals("checkout")){
+            
+            String username = request.getRemoteUser();
+            String name = request.getParameter("name");
+            String street = request.getParameter("street");
+            String zip = request.getParameter("zip");
+            String city = request.getParameter("city");
+            String country = request.getParameter("country");
+            
+            try{
+                OrderBean ob = new OrderBean(jdbcURL);
+                ob.setUsername(username);
+                ob.setName(name);
+                ob.setStreet(street);
+                ob.setZip(zip);
+                ob.setCity(city);
+                ob.setCountry(country);
+                
+                Integer idorder = ob.addOrder();
+                Integer idproduct;
+                Integer quantity;
+                Iterator iter = cart.getCart().iterator();
+                Object tmpArr[];
+                while(iter.hasNext()){
+                    tmpArr = (Object[])iter.next();
+                    idproduct = ((PizzaBean)tmpArr[0]).getId();
+                    quantity = (Integer)tmpArr[1];
+                    ob = new OrderBean(jdbcURL,idorder,idproduct,quantity);
+                    ob.addOrderProduct();
+                }
+            }
+            catch(Exception e){
+            }
+            rd = request.getRequestDispatcher(orderPage);
             rd.forward(request,response);
         }
     }
