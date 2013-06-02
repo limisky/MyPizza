@@ -66,12 +66,16 @@ public class OrderListBean {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        String sql = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url);
             
             stmt = conn.createStatement();
-            String sql = "select * from `order` where user_name='"+username+"'";
+            if(username=="admin")
+                sql = "select * from `order`";
+            else
+                sql = "select * from `order` where user_name='"+username+"'";
             rs = stmt.executeQuery(sql);
             
             while(rs.next()){
@@ -82,7 +86,7 @@ public class OrderListBean {
                 
                 order[0]+=rs.getString("ordertime");
                 order[0]+="     Total:"+rs.getString("total")+" Kr";
-                order[1]+=rs.getString("street_address")+","+rs.getString("city")+","+rs.getString("country")+","+rs.getString("zip_code");
+                order[1]+=rs.getString("user_name")+" | "+rs.getString("street_address")+","+rs.getString("city")+","+rs.getString("country")+","+rs.getString("zip_code");
                 
                 order[2] = getProducts(rs.getInt("idorder"));
                 //order[2] = "<img src='img/background.jpg'/>";

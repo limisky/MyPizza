@@ -214,7 +214,10 @@ public class ShopServlet extends HttpServlet {
             }else{
                 try{
                     OrderListBean olb = new OrderListBean(jdbcURL);
-                    olb.getOrderListByUsername(request.getRemoteUser());
+                    if(request.isUserInRole("admin"))
+                        olb.getOrderListByUsername("admin");
+                    else
+                        olb.getOrderListByUsername(request.getRemoteUser());
                     ServletContext sc = getServletContext();
                     sc.setAttribute("orders",olb.getOrders());
                 }
