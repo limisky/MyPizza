@@ -235,6 +235,26 @@ public class ShopServlet extends HttpServlet {
             rd = request.getRequestDispatcher("shop?action=loadCart");
             rd.forward(request,response);
         }
+        else if(request.getParameter("action").equals("updateProfile")){
+            String username = request.getRemoteUser();
+            String name = request.getParameter("name");
+            String street = request.getParameter("street");
+            String zip = request.getParameter("zip");
+            String city = request.getParameter("city");
+            String country=request.getParameter("country");
+                        
+            ProfileBean pb = new ProfileBean(jdbcURL);
+            pb.setName(name);
+            pb.setStreet(street);
+            pb.setZip(zip);
+            pb.setCity(city);
+            pb.setCountry(country);
+            try{
+                pb.update(username);
+            }catch(Exception e){}
+            rd = request.getRequestDispatcher("shop?action=loadProfile&frd=profile");
+            rd.forward(request,response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

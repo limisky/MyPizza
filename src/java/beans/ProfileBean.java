@@ -14,7 +14,28 @@ public class ProfileBean {
     private String zip;
     private String city;
     private String country;
-
+    
+    public void update(String username) throws Exception{
+        Connection con = null;
+        try{    
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            
+            String sql = "UPDATE `users` SET `name`='"+name+"' ,"
+                    + "`street_address`='"+street + "' ,"
+                    + "`zip_code`='"+zip + "' ,"
+                    + "`city`='"+city + "' ,"
+                    + "`country`='"+country
+                    + "' WHERE `user_name`='"+username+"';";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.execute();
+            con.commit(); 
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+    }
 
     public ProfileBean(String _url) {
         url=_url;

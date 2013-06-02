@@ -43,7 +43,7 @@
     <%@ include file="header.jsp"%>
     <div class="container">
         <div class="form-signin pull-right" style="width:420px">
-            <form method="POST">
+            <form method="POST" action="shop?action=updateProfile">
               <h2 class="form-signin-heading">Update Profile</h2>
               <table>
                   <thead>
@@ -56,23 +56,23 @@
                   </tr>
                   <tr>
                       <td><p class="text-right">Name:</p></td>
-                      <td><input type="text" class="span4" style="margin-left:10px" value="${profile.name}"></td>
+                      <td><input type="text" name="name" class="span4" style="margin-left:10px" value="${profile.name}"></td>
                   </tr>
                   <tr>
                       <td><p class="text-right">Street:</p></td>
-                      <td><input type="text" class="span4" style="margin-left:10px" value="${profile.street}"></td>
+                      <td><input type="text" name="street" class="span4" style="margin-left:10px" value="${profile.street}"></td>
                   </tr>
                   <tr>
                       <td><p class="text-right">Zip:</p></td>
-                      <td><input type="text" class="span4" style="margin-left:10px" value="${profile.zip}"></td>
+                      <td><input type="text" name="zip" class="span4" style="margin-left:10px" value="${profile.zip}"></td>
                   </tr>
                   <tr>
                       <td><p class="text-right">City:</p></td>
-                      <td><input type="text" class="span4" style="margin-left:10px" value="${profile.city}"></td>
+                      <td><input type="text" name="city" class="span4" style="margin-left:10px" value="${profile.city}"></td>
                   </tr>
                   <tr>
                       <td><p class="text-right">Country:</p></td>
-                      <td><input type="text" class="span4" style="margin-left:10px" value="${profile.country}"></td>
+                      <td><input type="text" name="country" class="span4" style="margin-left:10px" value="${profile.country}"></td>
                   </tr>
                   <tr>
                       <td></td>
