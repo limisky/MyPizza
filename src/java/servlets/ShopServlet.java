@@ -196,16 +196,20 @@ public class ShopServlet extends HttpServlet {
             rd.forward(request,response);
         }
         else if(request.getParameter("action").equals("loadOrder")){
-            try{
-                OrderListBean olb = new OrderListBean(jdbcURL);
-                olb.getOrderListByUsername(request.getRemoteUser());
-                ServletContext sc = getServletContext();
-                sc.setAttribute("orders",olb.getOrders());
+            if(request.getRemoteUser()==null){
+                response.sendRedirect("login.jsp");
+            }else{
+                try{
+                    OrderListBean olb = new OrderListBean(jdbcURL);
+                    olb.getOrderListByUsername(request.getRemoteUser());
+                    ServletContext sc = getServletContext();
+                    sc.setAttribute("orders",olb.getOrders());
+                }
+                catch(Exception e){
+                }
+                rd = request.getRequestDispatcher(orderPage);
+                rd.forward(request,response);
             }
-            catch(Exception e){
-            }
-            rd = request.getRequestDispatcher(orderPage);
-            rd.forward(request,response);
         }
     }
 
