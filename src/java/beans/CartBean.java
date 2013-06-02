@@ -1,5 +1,10 @@
 package beans;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,6 +19,44 @@ public class CartBean {
     
     public CartBean(){
         cart = new ArrayList();
+    }
+    public void removePizza(int id, int quantity,String url)throws Exception{
+        Connection con = null;
+        
+        Iterator iter = cart.iterator();
+        Object tmpArr[];
+        while(iter.hasNext()){
+            tmpArr = (Object[])iter.next();
+            if(((PizzaBean)tmpArr[0]).getId()==id){
+                Integer tmpAntal = (Integer)tmpArr[1];
+                tmpArr[1] = new Integer(tmpAntal.intValue()-quantity);
+                total -=(((PizzaBean)tmpArr[0]).getPrice())*quantity;
+                if((Integer)tmpArr[1]==0)
+                    cart.remove(tmpArr);
+            }
+        }
+        try{    
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            
+            String querySQL = "SELECT * from `product_component`,`component` where product_component.idcomponent=component.idcomponent"
+                    + " and idproduct ='"+id+"'";
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery(querySQL);
+            
+            while(rs.next()){
+                int newstock = rs.getInt("stock")+(rs.getInt("quantity")*quantity);
+                String sql = "UPDATE `component` SET `stock`="+newstock+" WHERE `idcomponent`='"+rs.getInt("idcomponent")+"';";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.execute();
+                con.commit(); 
+            }
+        
+        }
+        catch(Exception e){
+            con.rollback();
+        }
     }
     public void addPizza(PizzaBean pb, int quantity){
         Object newItem[] = null;

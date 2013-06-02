@@ -114,11 +114,24 @@ public class ShopServlet extends HttpServlet {
             
             PizzaBean pb = null;
             pb = pizzaList.getById(pizzaid);
-            cart.addPizza(pb, quantity);
-            
-            sess.setAttribute("cart", cart);
-            rd = request.getRequestDispatcher(productPage+"?id="+pizzaid+"&mess=succ");
-            rd.forward(request,response);
+            pb.setUrl(jdbcURL);
+            boolean stock =false;
+            try{
+                stock = pb.checkStock(quantity);
+            }
+            catch(Exception e){
+            }
+            if(stock){
+                cart.addPizza(pb, quantity);
+
+                sess.setAttribute("cart", cart);
+                rd = request.getRequestDispatcher(productPage+"?id="+pizzaid+"&mess=succ");
+                rd.forward(request,response);
+            }
+            else{
+                rd = request.getRequestDispatcher(productPage+"?id="+pizzaid+"&mess=err");
+                rd.forward(request,response);               
+            }
         }
         else if(request.getParameter("action").equals("loadCart")){
             ServletContext sc = getServletContext();
@@ -210,6 +223,17 @@ public class ShopServlet extends HttpServlet {
                 rd = request.getRequestDispatcher(orderPage);
                 rd.forward(request,response);
             }
+        }
+        else if(request.getParameter("action").equals("remove")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            int quantity = Integer.parseInt(request.getParameter("num"));
+            try{
+                cart.removePizza(id,quantity,jdbcURL);
+            }
+            catch(Exception e){
+            }
+            rd = request.getRequestDispatcher("shop?action=loadCart");
+            rd.forward(request,response);
         }
     }
 

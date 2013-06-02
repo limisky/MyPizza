@@ -27,6 +27,36 @@ public class PizzaBean {
         url = _url;
         id = _idproduct;
     }
+    public boolean checkStock(Integer quantity)throws Exception{
+        try{    
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            
+            String querySQL = "SELECT * from `product_component`,`component` where product_component.idcomponent=component.idcomponent"
+                    + " and idproduct ='"+id+"'";
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery(querySQL);
+            
+            while(rs.next()){
+                if((rs.getInt("quantity")*quantity)>(rs.getInt("stock")))
+                    return false;
+            }
+            rs= stmt.executeQuery(querySQL);
+            while(rs.next()){
+                int newstock = rs.getInt("stock")-(rs.getInt("quantity")*quantity);
+                String sql = "UPDATE `component` SET `stock`="+newstock+" WHERE `idcomponent`='"+rs.getInt("idcomponent")+"';";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.execute();
+                con.commit(); 
+            }
+        
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+        return true;
+    }
     public void addSales(int quantity)throws Exception{
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -130,6 +160,13 @@ public class PizzaBean {
      */
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    /**
+     * @param url the url to set
+     */
+    public void setUrl(String url) {
+        this.url = url;
     }
     
     

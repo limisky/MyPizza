@@ -26,15 +26,17 @@
             </tr></thead>
             <tbody>
             <c:forEach var="cartItem" items="${cartList}">
+            <form method="POST" action="shop?action=remove&id=${cartItem[0].id}">
                 <tr>
                     <td height="50" width="100"><img src="${cartItem[0].pic_url}"</td>
                     <td>${cartItem[0].name}</td>
                     <td>${cartItem[0].price} Kr</td>
                     <td>${cartItem[1]}</td>
                     <td>${cartItem[0].price * cartItem[1]} Kr</td>
-                    <td><input type="number" class="span1" value="${cartItem[1]}" max="${cartItem[1]}" min="1"/></td>
-                    <td><button class=" btn">remove</button></td>
+                    <td><input type="number" name="num" class="span1" value="${cartItem[1]}" max="${cartItem[1]}" min="1"/></td>
+                    <td><button class=" btn" type="submit">remove</button></td>
                 </tr>
+            </form>
             </c:forEach>
             <tfoot>
                 <td></td>
