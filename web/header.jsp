@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +11,7 @@
     <script src="js/bootstrap.js"></script>
     <link rel="shortcut icon" href="img/icon.ico"/>
     </head>
-    <body>
+    <body onload="check();">
         <div class="navbar navbar-inverse navbar-fixed-top">
           <div class="navbar-inner">
             <div class="container" style="width: auto; margin-left: 100px; margin-right: 100px">
@@ -23,13 +24,20 @@
                 <ul class="nav">
                   <li><a href="index.jsp">Home</a></li>
                   <li><a href="shop?action=loadPizza">Pizza</a></li>
-                  <li><a href="#">Order</a></li>
+                  <li><a href="shop?action=loadOrder">Order</a></li>
                   <li><a href="shop?action=loadCart">Cart</a></li>
                   <li class="divider-vertical"></li>
                   <li id="username" style="height: 40px"><a href="shop?action=loadProfile&frd=profile"><%= request.getRemoteUser() %></a></li>
                   <li id="login"><a href="login.jsp">Login</a></li>
+                  <li id="manage"><a href="manage.jsp">Manage</a></li>                  
                   <li id="logout"><a href="shop?action=logout">Logout</a></li>
                   <script>
+                    var adminflag = <%=request.isUserInRole("admin")%>;
+                    if(adminflag == false)
+                        $("li#manage").hide();
+                    else
+                        $("li#username").show();
+                    
                     var username = $("li#username").text();
                     if(username == "null")
                     {

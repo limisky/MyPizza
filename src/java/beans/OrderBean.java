@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +20,7 @@ public class OrderBean {
     private String zip = null;
     private String city = null;
     private String country = null;
+    private String total = null;
     
     private Integer idorder = 0;
     private Integer idproduct = 0;  
@@ -63,8 +63,8 @@ public class OrderBean {
     }
     public Integer addOrder() throws Exception{
         Integer idorder=0;
-        addOrderSQL = "INSERT INTO `order` (`user_name`, `name`, `street_address`, `zip_code`, `city`, `country`, `ordertime`) ";
-        addOrderSQL += "VALUES (?,?,?,?,?,?,?)";
+        addOrderSQL = "INSERT INTO `order` (`user_name`, `name`, `street_address`, `zip_code`, `city`, `country`, `ordertime`, `total`) ";
+        addOrderSQL += "VALUES (?,?,?,?,?,?,?,?)";
         Date currentTime = new Date();   
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");   
         String dateString = formatter.format(currentTime);   
@@ -81,6 +81,7 @@ public class OrderBean {
             addOrderPstmt.setString(5,city);
             addOrderPstmt.setString(6,country);
             addOrderPstmt.setString(7,dateString);
+            addOrderPstmt.setString(8,total);
             addOrderPstmt.execute();
             con.commit();
             
@@ -178,6 +179,20 @@ public class OrderBean {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the total
+     */
+    public String getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(String total) {
+        this.total = total;
     }
     
 }

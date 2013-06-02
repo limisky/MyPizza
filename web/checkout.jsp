@@ -97,7 +97,7 @@
                       <td><input type="text" name="country" class="span4" style="margin-left:10px" value="${profile.country}"></td>
                   </tr>
                   <tr>
-                      <td></td>
+                      <td><input type="hidden" name="total" value="${total}"></td>
                       <td><button class="btn btn-large btn-primary pull-right" type="submit">Confirm</button></td>
                   </tr>
               </table>

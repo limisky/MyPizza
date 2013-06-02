@@ -162,7 +162,7 @@ public class ShopServlet extends HttpServlet {
             String zip = request.getParameter("zip");
             String city = request.getParameter("city");
             String country = request.getParameter("country");
-            
+            String total = request.getParameter("total");
             try{
                 OrderBean ob = new OrderBean(jdbcURL);
                 ob.setUsername(username);
@@ -171,6 +171,7 @@ public class ShopServlet extends HttpServlet {
                 ob.setZip(zip);
                 ob.setCity(city);
                 ob.setCountry(country);
+                ob.setTotal(total);
                 
                 Integer idorder = ob.addOrder();
                 Integer idproduct;
@@ -187,6 +188,19 @@ public class ShopServlet extends HttpServlet {
                     PizzaBean pb = new PizzaBean(jdbcURL,idproduct);
                     pb.addSales(quantity);
                 }
+                cart.getCart().clear();
+            }
+            catch(Exception e){
+            }
+            rd = request.getRequestDispatcher("shop?action=loadOrder");
+            rd.forward(request,response);
+        }
+        else if(request.getParameter("action").equals("loadOrder")){
+            try{
+                OrderListBean olb = new OrderListBean(jdbcURL);
+                olb.getOrderListByUsername(request.getRemoteUser());
+                ServletContext sc = getServletContext();
+                sc.setAttribute("orders",olb.getOrders());
             }
             catch(Exception e){
             }

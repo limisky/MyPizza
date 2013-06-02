@@ -40,7 +40,6 @@ public class PizzaBean {
             quantity += rs.getInt("sales");  
             
             String sql = "UPDATE `product` SET `sales`="+quantity+" WHERE `idproduct`='"+id+"';";
-            System.out.println(sql);
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.execute();
             con.commit();         
