@@ -268,9 +268,14 @@ public class ShopServlet extends HttpServlet {
             }
             ServletContext sc = getServletContext();
             sc.setAttribute("comList",comList.getComponentList());
-            
-            rd = request.getRequestDispatcher("newproduct.jsp");
-            rd.forward(request,response);
+            if(request.getParameter("frw").equals("newpdt")){
+                rd = request.getRequestDispatcher("newproduct.jsp");
+                rd.forward(request,response);
+            }
+            else{
+                rd = request.getRequestDispatcher("ordercomponent.jsp");
+                rd.forward(request,response);
+            }
         }  
         else if(request.getParameter("action").equals("addPizza")){
             try{
@@ -280,7 +285,6 @@ public class ShopServlet extends HttpServlet {
                 pb.setDescription(request.getParameter("description"));
                 pb.setPic_url(request.getParameter("pic_url"));
                 Integer newid = pb.addPizza();
-                System.out.println(newid);
                 for(int i=1;i<=comList.getComponentList().size();i++){
                     if(!request.getParameter(i+"").trim().equals("0")){
                         pb.addCom(newid, i, Integer.parseInt(request.getParameter(i+"")));
@@ -290,9 +294,22 @@ public class ShopServlet extends HttpServlet {
             catch(Exception e){
                 
             }
-           
-            
             rd = request.getRequestDispatcher("shop?action=loadPizza");
+            rd.forward(request,response);
+        }  
+        else if(request.getParameter("action").equals("ordCom")){
+            try{
+                for(int i=1;i<=(comList.getComponentList().size());i++){
+                    if(!request.getParameter(i+"").trim().equals("0")){
+                       ComponentBean cb = new ComponentBean(jdbcURL,i);
+                       cb.orderCom(Integer.parseInt(request.getParameter(i+"")));
+                    }  
+                }
+            }
+            catch(Exception e){
+                
+            }
+            rd = request.getRequestDispatcher("shop?action=loadcomponent&frw=ordcom");
             rd.forward(request,response);
         }  
         
