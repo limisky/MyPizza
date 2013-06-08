@@ -12,11 +12,12 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`component` (
   `idcomponent` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
   `stock` INT(11) NOT NULL DEFAULT '0' ,
-  `price` DOUBLE NOT NULL ,
+  `price` DOUBLE NULL DEFAULT NULL ,
   `description` VARCHAR(200) NULL DEFAULT NULL ,
   PRIMARY KEY (`idcomponent`) ,
   UNIQUE INDEX `idcomponent_UNIQUE` (`idcomponent` ASC) )
 ENGINE = InnoDB
+AUTO_INCREMENT = 21
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -59,7 +60,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`order` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 25
+AUTO_INCREMENT = 27
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -76,7 +77,7 @@ CREATE  TABLE IF NOT EXISTS `pizza`.`product` (
   PRIMARY KEY (`idproduct`) ,
   UNIQUE INDEX `idproduct_UNIQUE` (`idproduct` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
 
 

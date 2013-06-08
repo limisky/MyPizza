@@ -81,7 +81,7 @@
               </table>
             </form>
         </div>
-        <div class="form-signin pull-left" style="width:300px">
+<!--        <div class="form-signin pull-left" style="width:300px">
             <form method="POST">
                <h2 class="form-signin-heading">Change Password</h2>
                <input type="text" id="op" name="username" class="input-block-level" placeholder="Old Password">
@@ -89,7 +89,7 @@
                <input type="password" id="p2" name="ver_pass" class="input-block-level" placeholder="Verify Password">
                <button class="btn btn-large btn-primary pull-right" type="submit">Change</button>
            </form>
-        </div>
+        </div>-->
     </div>
    </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>MyPizza | Home</title>
+    <title>MyPizza | Manage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <script src="http://code.jquery.com/jquery.js"></script>
@@ -25,7 +25,14 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-            
+            <h2>Contact Us</h2><br>
+            <address>
+                <strong>Group 9</strong><br>
+                <strong>Li Mi</strong><br>
+                <a href="mailto:limisky@gmail.com">limisky@gmail.com</a><br>
+                <strong>Yang Jinyi</strong><br>
+                <a href="mailto:phyjyi999@163.com">phyjyi999@163.com</a><br>
+              </address>
         </div><!--/span-->
       </div><!--/row-->
     </div><!--/.fluid-container-->

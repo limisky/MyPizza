@@ -16,10 +16,10 @@
           <div class="navbar-inner">
             <div class="container" style="width: auto; margin-left: 100px; margin-right: 100px">
               <a class="brand" href="#">MyPizza</a>
-              <form class="navbar-form pull-left">
+<!--              <form class="navbar-form pull-left">
                 <input class="span4" type="text" placeholder="Pizza...">
                 <button type="submit" class="btn">Search</button>
-              </form>   
+              </form>   -->
               <div class="nav-collapse collapse pull-right">
                 <ul class="nav">
                   <li><a href="index.jsp">Home</a></li>
