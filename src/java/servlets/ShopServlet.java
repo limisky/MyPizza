@@ -315,7 +315,7 @@ public class ShopServlet extends HttpServlet {
         else if(request.getParameter("action").equals("addCom")){
             try{
                 ComponentBean cb = new ComponentBean(jdbcURL);
-                cb.addNewCom(request.getParameter("name"));
+                cb.addNewCom(request.getParameter("name"),request.getParameter("price"));
             }
             catch(Exception e){
             }

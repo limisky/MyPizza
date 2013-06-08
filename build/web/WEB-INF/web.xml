@@ -62,6 +62,9 @@
         <web-resource-collection>
             <web-resource-name>Manage</web-resource-name>
             <url-pattern>/manage.jsp</url-pattern>
+            <url-pattern>/newcomponent.jsp</url-pattern>
+            <url-pattern>/newproduct.jsp</url-pattern>
+            <url-pattern>/ordercomponent.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>admin</role-name>

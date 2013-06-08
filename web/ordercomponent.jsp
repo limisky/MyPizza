@@ -31,12 +31,14 @@
                     <thead>
                         <td>Name</td>
                         <td>Stock</td>
+                        <td>Price</td>
                         <td>Order</td>
                     </thead>
                     <c:forEach var="com" items="${comList}">
                         <tr>
                         <td>${com[1]}</td>
                         <td>${com[2]}</td>
+                        <td>${com[3]} Kr</td>
                         <td><input type="number" name="${com[0]}" class="span4" value="0" min="0" style="margin-left:10px"></td>
                         </tr>
                     </c:forEach>

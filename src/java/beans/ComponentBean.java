@@ -50,16 +50,16 @@ public class ComponentBean {
             con.rollback();
         }
     }
-    public void addNewCom(String name) throws Exception{
-        String sql = "INSERT INTO `component` (`name`) ";
-        sql += "VALUES (?)";
-                  System.out.println(sql);
+    public void addNewCom(String name,String price) throws Exception{
+        String sql = "INSERT INTO `component` (`name`,`price`) ";
+        sql += "VALUES (?,?)";
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(url);
             con.setAutoCommit(false);
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1,name);
+            pstmt.setDouble(2,Double.parseDouble(price));
             pstmt.execute();
             con.commit();        
         }
