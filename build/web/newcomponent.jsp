@@ -20,12 +20,17 @@
               <li><a href="shop?action=loadcomponent&frw=newpdt">New Product</a></li>
               <li class="nav-header">Components</li>
               <li><a href="shop?action=loadcomponent&frw=ordcom">Order Components</a></li>
-              <li><a href="newcomponent.jsp">New Component</a></li>
+              <li class="active"><a href="newcomponent.jsp">New Component</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
-            
+            <br/>
+            <form method="POST" action='shop?action=addCom'>
+                <input type="text" name="name" class="span4" placeholder="component name">
+                <br/>
+                <button class="btn btn-large btn-primary" type="submit">Add</button>
+            </form>
         </div><!--/span-->
       </div><!--/row-->
     </div><!--/.fluid-container-->

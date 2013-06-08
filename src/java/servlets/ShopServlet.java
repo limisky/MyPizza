@@ -312,6 +312,16 @@ public class ShopServlet extends HttpServlet {
             rd = request.getRequestDispatcher("shop?action=loadcomponent&frw=ordcom");
             rd.forward(request,response);
         }  
+        else if(request.getParameter("action").equals("addCom")){
+            try{
+                ComponentBean cb = new ComponentBean(jdbcURL);
+                cb.addNewCom(request.getParameter("name"));
+            }
+            catch(Exception e){
+            }
+            rd = request.getRequestDispatcher("shop?action=loadcomponent&frw=ordcom");
+            rd.forward(request,response);
+        }  
         
     }
 

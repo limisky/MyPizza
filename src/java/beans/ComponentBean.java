@@ -12,9 +12,14 @@ import java.sql.Statement;
  * @author Administrator
  */
 public class ComponentBean {
+    private Connection con;
     private String url;
     private Integer id;
     private Integer stock;
+    
+    public ComponentBean(String _url){
+        url=_url;
+    }
     public ComponentBean(String _url,Integer _id){
         url=_url;
         id=_id;
@@ -40,6 +45,23 @@ public class ComponentBean {
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.execute();
             con.commit(); 
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+    }
+    public void addNewCom(String name) throws Exception{
+        String sql = "INSERT INTO `component` (`name`) ";
+        sql += "VALUES (?)";
+                  System.out.println(sql);
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1,name);
+            pstmt.execute();
+            con.commit();        
         }
         catch(Exception e){
             con.rollback();

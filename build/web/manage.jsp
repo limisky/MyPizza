@@ -19,8 +19,8 @@
               <li class="nav-header">Products</li>
               <li><a href="shop?action=loadcomponent&frw=newpdt">New Product</a></li>
               <li class="nav-header">Components</li>
-              <li><a href="#">Order Components</a></li>
-              <li><a href="#">New Component</a></li>
+              <li><a href="shop?action=loadcomponent&frw=ordcom">Order Components</a></li>
+              <li><a href="newcomponent.jsp">New Component</a></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
