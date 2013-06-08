@@ -1,17 +1,34 @@
-<%-- 
-    Document   : backend
-    Created on : 2013-6-2, 12:38:28
-    Author     : Administrator
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MyPizza | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="shortcut icon" href="img/icon.ico"/>
+  </head>
+  <body>
+    <%@ include file="header.jsp"%>
+    <div class="container-fluid" style="margin-top:20px">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Products</li>
+              <li><a href="shop?action=loadcomponent&frw=newpdt">New Product</a></li>
+              <li class="nav-header">Components</li>
+              <li><a href="#">Order Components</a></li>
+              <li><a href="#">New Component</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+            
+        </div><!--/span-->
+      </div><!--/row-->
+    </div><!--/.fluid-container-->
+    <%@ include file="footer.jsp"%>
+  </body>
 </html>

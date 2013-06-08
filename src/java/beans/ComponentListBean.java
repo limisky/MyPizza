@@ -13,33 +13,31 @@ import java.util.Iterator;
  *
  * @author Administrator
  */
-public class PizzaListBean {
-    private Collection pizzaList;
+public class ComponentListBean {
+    private Collection comList;
     private String url=null;
     
-    public PizzaListBean(String _url) throws Exception{
+    public ComponentListBean(String _url) throws Exception{
         url = _url;
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        pizzaList = new ArrayList();
+        comList = new ArrayList();
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url);
             
             stmt = conn.createStatement();
-            String sql = "select * from product";
+            String sql = "select * from component";
             rs = stmt.executeQuery(sql);
             
+            Object newItem[] = null;
             while(rs.next()){
-                PizzaBean pb = new PizzaBean();
-                pb.setId(rs.getInt("idproduct"));
-                pb.setName(rs.getString("name"));
-                pb.setPrice(rs.getDouble("price"));
-                pb.setDescription(rs.getString("description"));
-                pb.setPic_url(rs.getString("pic_url"));
-                pb.setSales(rs.getInt("sales"));
-                pizzaList.add(pb);
+                newItem = new Object[3];
+                newItem[0] = (Integer)rs.getInt("idcomponent");
+                newItem[1] = (String)rs.getString("name");
+                newItem[2] = (Integer)rs.getInt("stock");
+                comList.add(newItem);
             }
         }
         catch(SQLException sqle){
@@ -60,19 +58,7 @@ public class PizzaListBean {
             catch(Exception e){}
         }
     }
-    public Collection getProductList() {
-        return pizzaList;
-    }
-    public PizzaBean getById(int id) {
-	PizzaBean pb = null;
-	Iterator iter =pizzaList.iterator();
-        
-	while(iter.hasNext()){
-	    pb=(PizzaBean)iter.next();
-	    if(pb.getId()== id){
-                return pb;
-	    }
-	}
-	return null;
+    public Collection getComponentList() {
+        return comList;
     }
 }

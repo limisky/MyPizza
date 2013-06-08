@@ -26,10 +26,10 @@
                   <li><a href="shop?action=loadPizza">Pizza</a></li>
                   <li><a href="shop?action=loadOrder">Order</a></li>
                   <li><a href="shop?action=loadCart">Cart</a></li>
+                  <li id="manage"><a href="manage.jsp">Manage</a></li>     
                   <li class="divider-vertical"></li>
                   <li id="username" style="height: 40px"><a href="shop?action=loadProfile&frd=profile"><%= request.getRemoteUser() %></a></li>
-                  <li id="login"><a href="login.jsp">Login</a></li>
-                  <li id="manage"><a href="manage.jsp">Manage</a></li>                  
+                  <li id="login"><a href="login.jsp">Login</a></li>             
                   <li id="logout"><a href="shop?action=logout">Logout</a></li>
                   <script>
                     var adminflag = <%=request.isUserInRole("admin")%>;

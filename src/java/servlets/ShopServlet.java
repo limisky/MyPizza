@@ -26,6 +26,7 @@ public class ShopServlet extends HttpServlet {
     private static String jdbcURL = null;
     
     private PizzaListBean pizzaList = null;
+    private ComponentListBean comList = null;
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
@@ -258,6 +259,43 @@ public class ShopServlet extends HttpServlet {
             rd = request.getRequestDispatcher("shop?action=loadProfile&frd=profile");
             rd.forward(request,response);
         }
+        else if(request.getParameter("action").equals("loadcomponent")){
+            try{
+                comList = new ComponentListBean(jdbcURL);
+            }
+            catch(Exception e){
+                throw new ServletException(e);
+            }
+            ServletContext sc = getServletContext();
+            sc.setAttribute("comList",comList.getComponentList());
+            
+            rd = request.getRequestDispatcher("newproduct.jsp");
+            rd.forward(request,response);
+        }  
+        else if(request.getParameter("action").equals("addPizza")){
+            try{
+                PizzaBean pb = new PizzaBean(jdbcURL);
+                pb.setName(request.getParameter("name"));
+                pb.setPrice(Double.parseDouble(request.getParameter("price")));
+                pb.setDescription(request.getParameter("description"));
+                pb.setPic_url(request.getParameter("pic_url"));
+                Integer newid = pb.addPizza();
+                System.out.println(newid);
+                for(int i=1;i<=comList.getComponentList().size();i++){
+                    if(!request.getParameter(i+"").trim().equals("0")){
+                        pb.addCom(newid, i, Integer.parseInt(request.getParameter(i+"")));
+                    }  
+                }
+            }
+            catch(Exception e){
+                
+            }
+           
+            
+            rd = request.getRequestDispatcher("shop?action=loadPizza");
+            rd.forward(request,response);
+        }  
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -23,9 +24,58 @@ public class PizzaBean {
     
     public PizzaBean(){
     }
+    public PizzaBean(String _url){
+        url=_url;
+    }
     public PizzaBean(String _url, int _idproduct){
         url = _url;
         id = _idproduct;
+    }
+    public void addCom(Integer idPizza, Integer idCom,Integer quantity)throws SQLException{
+        String sql = "INSERT INTO `product_component` (`idproduct`, `idcomponent`, `quantity`) ";
+        sql += "VALUES (?,?,?)";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1,idPizza);
+            pstmt.setInt(2,idCom);
+            pstmt.setInt(3,quantity);
+            pstmt.execute();
+            con.commit();           
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+    }
+    public Integer addPizza() throws SQLException{
+        Integer idpizza=0;
+        String addPizzaSQL = "INSERT INTO `product` (`name`, `price`, `description`, `pic_url`) ";
+        addPizzaSQL += "VALUES (?,?,?,?)";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(url);
+            con.setAutoCommit(false);
+            PreparedStatement pstmt = con.prepareStatement(addPizzaSQL);
+            pstmt.setString(1,name);
+            pstmt.setDouble(2,price);
+            pstmt.setString(3,description);
+            pstmt.setString(4,pic_url);
+            pstmt.execute();
+            con.commit();
+            
+            String sql = "SELECT idproduct from `product`";
+            Statement stmt = con.createStatement();
+            ResultSet rs= stmt.executeQuery(sql);
+            while(rs.next()){
+                idpizza = rs.getInt("idproduct");   
+            }         
+        }
+        catch(Exception e){
+            con.rollback();
+        }
+        return idpizza;
     }
     public boolean checkStock(Integer quantity)throws Exception{
         try{    
