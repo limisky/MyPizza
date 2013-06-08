@@ -28,7 +28,7 @@
             <br/>
             <form method="POST" action='shop?action=addCom'>
                 <input type="text" name="name" class="span4" placeholder="Component Name">
-                <input type="number" name="price" class="span2" placeholder="Price">  Kr
+                <input type="number" name="price" class="span2" value="10">  Kr
                 <br/>
                 <button class="btn btn-large btn-primary" type="submit">Add</button>
             </form>
